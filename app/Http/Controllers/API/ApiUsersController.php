@@ -18,7 +18,6 @@ class ApiUsersController extends Controller
      */
     public function index()
     {
-
         $data_users = User::all();
 
         if($data_users) {
@@ -27,8 +26,6 @@ class ApiUsersController extends Controller
                 'message'   => 'Retrieved Successfully'
             ], 200);
         }
-
-        // return view('index', compact(['data_users']));
     }
 
     /**
@@ -48,7 +45,9 @@ class ApiUsersController extends Controller
         $validateData['password'] = Hash::make($request->password);
         $user = User::create($validateData);
         // $accessToken = $user->createToken('authToken')->accessToken;
-        return redirect()->route('user.index');
+        // dd($accessToken);
+        // return response(['user' => $user, 'access_token' => $accessToken], 201);
+        return response(['user' => $user], 201);
     }
 
     /**

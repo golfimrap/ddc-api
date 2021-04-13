@@ -5,7 +5,7 @@
             Add User
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('user.api.store') }}">
+            <form method="POST" action="{{ route('user.store') }}">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Email</label>

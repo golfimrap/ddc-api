@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
@@ -41,7 +42,20 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client = new \GuzzleHttp\Client([ 'verify' => false ]);
+        $response = $client->request('POST','http://ddc-api.local/api/users', [
+            'form_params' => [
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => Hash::make($request->password),
+            ],
+            'verify' => false,
+            'connect_timeout' => 30
+        ]);
+        // $data_users = json_decode($response->getBody(), true);
+        // $data_users = User::all();
+
+        return redirect()->route('user.index');
     }
 
     /**
