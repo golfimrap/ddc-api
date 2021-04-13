@@ -16,7 +16,6 @@ class ApiUsers extends Model
     protected $fillable = [
         'id',
         'name',
-        'email',
-        'password'
+        'email'
     ];
 }

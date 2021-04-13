@@ -8,6 +8,7 @@ use App\Models\ApiUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ApiUsersController extends Controller
 {
@@ -44,10 +45,14 @@ class ApiUsersController extends Controller
 
         $validateData['password'] = Hash::make($request->password);
         $user = User::create($validateData);
-        // $accessToken = $user->createToken('authToken')->accessToken;
+        $accessToken = $user->createToken('authToken')->accessToken;
         // dd($accessToken);
         // return response(['user' => $user, 'access_token' => $accessToken], 201);
-        return response(['user' => $user], 201);
+        return response([
+            'user'          => new ApiUsersResource($user),
+            'access_token'  => $accessToken,
+            'message'       => 'Create successfully'
+        ], 201);
     }
 
     /**
@@ -58,17 +63,10 @@ class ApiUsersController extends Controller
      */
     public function show(ApiUsers $apiUsers)
     {
-        // dd($apiUsers);
-        // $test = new ApiUsersResource($apiUsers);
-
-        // dd($test);
-        // $apiUsers = '1';
         return response([
             'apiUsers'      => new ApiUsersResource($apiUsers),
             'message'       => 'Retrieved Successfully'
         ], 200);
-
-
     }
 
     /**
