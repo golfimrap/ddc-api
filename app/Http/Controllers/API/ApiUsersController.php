@@ -58,7 +58,17 @@ class ApiUsersController extends Controller
      */
     public function show(ApiUsers $apiUsers)
     {
-        //
+        // dd($apiUsers);
+        // $test = new ApiUsersResource($apiUsers);
+
+        // dd($test);
+        // $apiUsers = '1';
+        return response([
+            'apiUsers'      => new ApiUsersResource($apiUsers),
+            'message'       => 'Retrieved Successfully'
+        ], 200);
+
+
     }
 
     /**

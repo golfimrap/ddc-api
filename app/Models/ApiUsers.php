@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ApiUsers extends Model
 {
     use HasFactory;
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'id',
+        'name',
+        'email',
+        'password'
+    ];
 }
