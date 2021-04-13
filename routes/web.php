@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\ApiUsersController;
+use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [ApiUsersController::class, 'index'])->name('user.index');
+Route::get('/addUser', [IndexController::class, 'create'])->name('user.create');
+Route::post('/storeUsers', [IndexController::class, 'store'])->name('user.api.store');
