@@ -19,11 +19,12 @@
                     @php
                         $i=1;
                     @endphp
-                    @foreach ($data_users as $value_users)
+                    @foreach ($data_users as $key => $value)
                         <tr>
                             <td>{{ $i }}</td>
-                            <td>{{ $value_users->email }}</td>
-                            <td>{{ $value_users->name }}</td>
+                            <td>{{ $data_users[$key]['email'] }}</td>
+                            <td>{{ $data_users[$key]['name'] }}</td>
+
                             <td>
 
                             </td>

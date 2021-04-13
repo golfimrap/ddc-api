@@ -18,16 +18,17 @@ class ApiUsersController extends Controller
      */
     public function index()
     {
+
         $data_users = User::all();
 
-        // if($data_users) {
-        //     return response([
-        //         'provinces' => ApiUsersResource::collection($data_users),
-        //         'message'   => 'Retrieved Successfully'
-        //     ], 200);
-        // }
+        if($data_users) {
+            return response([
+                'users' => ApiUsersResource::collection($data_users),
+                'message'   => 'Retrieved Successfully'
+            ], 200);
+        }
 
-        return view('index', compact(['data_users']));
+        // return view('index', compact(['data_users']));
     }
 
     /**

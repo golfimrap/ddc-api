@@ -20,6 +20,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [ApiUsersController::class, 'index'])->name('user.index');
+Route::get('/', [IndexController::class, 'index'])->name('user.index');
 Route::get('/addUser', [IndexController::class, 'create'])->name('user.create');
 Route::post('/storeUsers', [ApiUsersController::class, 'store'])->name('user.api.store');

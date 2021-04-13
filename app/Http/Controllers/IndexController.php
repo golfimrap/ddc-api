@@ -13,10 +13,14 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $data_users = User::all();
-        return view('index', compact([
-            'data_users'
-        ]));
+        $client = new \GuzzleHttp\Client([ 'verify' => false ]);
+        $response = $client->request('GET','http://ddc-api.local/api/users');
+        $data_users = json_decode($response->getBody(), true);
+        // $data_users = User::all();
+
+        return view('index', [
+            'data_users' => $data_users['users']
+        ]);
     }
 
     /**
