@@ -23,4 +23,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('user.index');
 Route::get('/addUser', [IndexController::class, 'create'])->name('user.create');
 Route::post('/store', [IndexController::class, 'store'])->name('user.store');
-Route::get('/showUsers', [IndexController::class, 'show'])->name('user.show');
+Route::get('/editUsers/{id}', [IndexController::class, 'edit'])->name('user.edit');
+Route::patch('/updateUsers/{id}', [IndexController::class, 'update'])->name('user.update');

@@ -19,7 +19,7 @@ class ApiUsersController extends Controller
      */
     public function index()
     {
-        $data_users = User::all();
+        $data_users = ApiUsers::all();
 
         if($data_users) {
             return response([
@@ -61,10 +61,11 @@ class ApiUsersController extends Controller
      * @param  \App\Models\ApiUsers  $apiUsers
      * @return \Illuminate\Http\Response
      */
-    public function show(ApiUsers $apiUsers)
+    public function show(ApiUsers $apiUsers, $id)
     {
+        $data_users = ApiUsers::where('id', $id)->first();
         return response([
-            'apiUsers'      => new ApiUsersResource($apiUsers),
+            'apiUsers'      => new ApiUsersResource($data_users),
             'message'       => 'Retrieved Successfully'
         ], 200);
     }
@@ -78,7 +79,14 @@ class ApiUsersController extends Controller
      */
     public function update(Request $request, ApiUsers $apiUsers)
     {
-        //
+        $apiUsers = ApiUsers::find($request->id);
+        $apiUsers->name   = $request->name;
+        $apiUsers->save();
+
+        return response([
+            'apiUsers'   => new ApiUsersResource($apiUsers),
+            'message'       => 'Update successfully'
+        ], 200);
     }
 
     /**

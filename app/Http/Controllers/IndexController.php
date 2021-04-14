@@ -43,7 +43,7 @@ class IndexController extends Controller
     public function store(Request $request)
     {
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
-        $response = $client->request('POST','http://ddc-api.local/api/users', [
+        $client->request('POST','http://ddc-api.local/api/users', [
             'form_params' => [
                 'name'      => $request->name,
                 'email'     => $request->email,
@@ -66,7 +66,7 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        return view('show');
+
     }
 
     /**
@@ -77,7 +77,13 @@ class IndexController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = new \GuzzleHttp\Client([ 'verify' => false ]);
+        $response = $client->request('GET', 'http://ddc-api.local/api/users/'.$id);
+        $data_users = json_decode($response->getBody(), true);
+
+        return view('edit', [
+            'data_users' => $data_users['apiUsers']
+        ]);
     }
 
     /**
@@ -89,7 +95,16 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $client = new \GuzzleHttp\Client([ 'verify' => false ]);
+        $client->request('PATCH', 'http://ddc-api.local/api/users/'.$id , [
+            'form_params' => [
+                'id'   => $id,
+                'name' => $request->name
+            ],
+            'verify' => false,
+            'connect_timeout' => 30
+        ]);
+        return redirect()->route('user.index');
     }
 
     /**

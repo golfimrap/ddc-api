@@ -24,9 +24,8 @@
                             <td>{{ $i }}</td>
                             <td>{{ $value_users['email'] }}</td>
                             <td>{{ $value_users['name'] }}</td>
-
                             <td>
-
+                                <a href="{{ route('user.edit',$value_users['id']) }}" class="btn btn-warning">Edit User</a>
                             </td>
                         </tr>
                         @php
