@@ -95,8 +95,20 @@ class ApiUsersController extends Controller
      * @param  \App\Models\ApiUsers  $apiUsers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ApiUsers $apiUsers)
+    public function destroy(ApiUsers $apiUsers, $id)
     {
-        //
+        $apiUsers = ApiUsers::find($id);
+
+        if ($apiUsers) {
+            $destroy = ApiUsers::destroy($id);
+
+            if ($destroy) {
+                return response(['message' => 'Destroy successfully']);
+            } else {
+                return response(['message' => 'Destroy Fail!!']);
+            }
+        } else {
+            return response(['message' => 'Missing']);
+        }
     }
 }

@@ -25,3 +25,4 @@ Route::get('/addUser', [IndexController::class, 'create'])->name('user.create');
 Route::post('/store', [IndexController::class, 'store'])->name('user.store');
 Route::get('/editUsers/{id}', [IndexController::class, 'edit'])->name('user.edit');
 Route::patch('/updateUsers/{id}', [IndexController::class, 'update'])->name('user.update');
+Route::delete('/destroyUsers/{id}', [IndexController::class, 'destroy'])->name('user.destroy');

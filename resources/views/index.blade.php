@@ -25,7 +25,12 @@
                             <td>{{ $value_users['email'] }}</td>
                             <td>{{ $value_users['name'] }}</td>
                             <td>
-                                <a href="{{ route('user.edit',$value_users['id']) }}" class="btn btn-warning">Edit User</a>
+                                <button class="btn btn-warning" style="display: inline;"><a href="{{ route('user.edit',$value_users['id']) }}" style="text-decoration:none; color:white;">Edit User</a></button>
+                                <form method="POST" action="{{ route('user.destroy',$value_users['id']) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" class="btn btn-danger" value="Delete User" >
+                                </form>
                             </td>
                         </tr>
                         @php

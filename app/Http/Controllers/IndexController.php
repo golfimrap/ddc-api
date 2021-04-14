@@ -115,6 +115,9 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = new \GuzzleHttp\Client([ 'verify' => false ]);
+        $client->request('DELETE', 'http://ddc-api.local/api/users/'.$id);
+
+        return redirect()->route('user.index');
     }
 }
