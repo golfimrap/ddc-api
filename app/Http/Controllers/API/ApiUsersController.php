@@ -26,10 +26,10 @@ class ApiUsersController extends Controller
     */
 
     /** @OA\Get(
-        ** path="/users/index",
+        ** path="/api/users",
         *   tags={"Users"},
-        *   summary="Users",
-        *   operationId="Users",
+        *   summary="Get Users List",
+        *   operationId="Users Index",
         *   @OA\RequestBody(
         *       required=true,
         *       description="Users Detail",
@@ -101,31 +101,57 @@ class ApiUsersController extends Controller
 
     /**
     * @OA\post(
-    **  path="/users/store",
-    *   summary="parameter",
-    *   description="detail by name, email, password",
-    *   operationId="NameDetail",
-    *   tags={"Users"},
-    *   @OA\RequestBody(
-    *       required=true,
-    *       description="Pass user credentials",
-    *       @OA\JsonContent(
-    *           required={"name","email","password"},
-    *           @OA\Property(property="name", type="string", format="name", example="จอห์น ชาวไร่"),
-    *           @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
-    *           @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
-    *           @OA\Property(property="persistent", type="boolean", example="true"),
-    *       ),
-    *   ),
-    *   @OA\Response(
-    *       response=201,
-    *       description="Create",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Create successfully")
-    *       )
-    *   )
-    * ),
-    */
+        **  path="api/users",
+        *   summary="Store new users",
+        *   description="detail by name, email, password",
+        *   operationId="User Store",
+        *   tags={"Users"},
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="email",
+        *       description="email",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="string"
+        *       ),
+        *   ),
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="password",
+        *       description="password",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="string"
+        *       )
+        *   ),
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="name",
+        *       description="name",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="string"
+        *       )
+        *   ),
+        *   @OA\RequestBody(
+        *       required=true,
+        *       description="Pass user credentials",
+        *       @OA\JsonContent(
+        *           required={"name","email","password"},
+        *           @OA\Property(property="name", type="string", format="name", example="จอห์น ชาวไร่"),
+        *           @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
+        *           @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
+        *       ),
+        *   ),
+        *   @OA\Response(
+        *       response=201,
+        *       description="Create",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="message", type="string", example="Create successfully")
+        *       )
+        *   )
+        * ),
+    **/
 
     public function store(Request $request)
     {
@@ -153,6 +179,47 @@ class ApiUsersController extends Controller
      * @param  \App\Models\ApiUsers  $apiUsers
      * @return \Illuminate\Http\Response
      */
+
+    /** @OA\Get(
+        ** path="/api/users/{id}",
+        *   tags={"Users"},
+        *   summary="Show Users Detail",
+        *   operationId="Users Show",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
+
     public function show(ApiUsers $apiUsers, $id)
     {
         $data_users = ApiUsers::where('id', $id)->first();
@@ -169,6 +236,56 @@ class ApiUsersController extends Controller
      * @param  \App\Models\ApiUsers  $apiUsers
      * @return \Illuminate\Http\Response
      */
+
+    /** @OA\patch(
+        ** path="/api/users/{id}",
+        *   tags={"Users"},
+        *   summary="Update Users",
+        *   operationId="Users Update",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\RequestBody(
+        *       required=true,
+        *       description="Pass user credentials",
+        *       @OA\JsonContent(
+        *           required={"name"},
+        *           @OA\Property(property="id", type="integer", format="id", example="1"),
+        *           @OA\Property(property="name", type="string", format="name", example="จอห์น ชาวไร่"),
+        *       ),
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
+
     public function update(Request $request, ApiUsers $apiUsers)
     {
         $apiUsers = ApiUsers::find($request->id);
@@ -189,19 +306,18 @@ class ApiUsersController extends Controller
      */
 
     /** @OA\Delete(
-        ** path="/users/destroy",
+        ** path="/api/users/{id}",
         *   tags={"Users"},
-        *   summary="Users",
+        *   summary="Delete existing User",
         *   operationId="Users Delete",
-        *   @OA\RequestBody(
+        *   @OA\Parameter(
         *       required=true,
-        *       description="Users Delete",
-        *       @OA\JsonContent(
-        *           required={
-        *               "id",
-        *           },
-        *           @OA\Property(property="id", type="int", example="1"),
-        *       ),
+        *       name="id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
         *   ),
         *   @OA\Response(
         *       response=200,

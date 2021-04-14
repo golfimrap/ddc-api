@@ -5,13 +5,13 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/users/index": {
+        "/api/users": {
             "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Users",
-                "operationId": "Users",
+                "summary": "Get Users List",
+                "operationId": "Users Index",
                 "requestBody": {
                     "description": "Users Detail",
                     "required": true,
@@ -99,14 +99,43 @@
                 }
             }
         },
-        "/users/store": {
+        "api/users": {
             "post": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "parameter",
+                "summary": "Store new users",
                 "description": "detail by name, email, password",
-                "operationId": "NameDetail",
+                "operationId": "User Store",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Pass user credentials",
                     "required": true,
@@ -124,19 +153,15 @@
                                         "format": "name",
                                         "example": "จอห์น ชาวไร่"
                                     },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "user1@mail.com"
-                                    },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
                                         "example": "PassWord12345"
                                     },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
                                     }
                                 },
                                 "type": "object"
@@ -164,26 +189,139 @@
                 }
             }
         },
-        "/users/destroy": {
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show Users Detail",
+                "operationId": "Users Show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Retrieved Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Users",
+                "summary": "Delete existing User",
                 "operationId": "Users Delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Destroy successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update Users",
+                "operationId": "Users Update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
-                    "description": "Users Delete",
+                    "description": "Pass user credentials",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "id"
+                                    "name"
                                 ],
                                 "properties": {
                                     "id": {
-                                        "type": "int",
+                                        "type": "integer",
+                                        "format": "id",
                                         "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "จอห์น ชาวไร่"
                                     }
                                 },
                                 "type": "object"
@@ -200,7 +338,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Destroy successfully"
+                                            "example": "Retrieved Successfully"
                                         }
                                     },
                                     "type": "object"
