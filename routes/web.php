@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\ApiUsersController;
-use App\Http\Controllers\API\UsersController;
-use App\Http\Controllers\DieseaseController;
+use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +26,8 @@ Route::get('/editUsers/{id}', [IndexController::class, 'edit'])->name('user.edit
 Route::patch('/updateUsers/{id}', [IndexController::class, 'update'])->name('user.update');
 Route::delete('/destroyUsers/{id}', [IndexController::class, 'destroy'])->name('user.destroy');
 
-Route::get('/getDisease/{id}', [DieseaseController::class, 'getDisease']);
-Route::get('/getDiseaseSex/{id}/{sex_id}', [DieseaseController::class, 'getDiseaseSex']);
-// Route::get('/')
+Route::get('/getDisease/{disease_id}', [DiseaseController::class, 'getDisease']);
+Route::get('/getDiseaseSex/{disease_id}/{sex_id}', [DiseaseController::class, 'getDiseaseSex']);
+Route::get('/getDiseaseProvince/{disease_id}/{province_id}', [DiseaseController::class, 'getDiseaseProvince']);
+Route::get('/getDiseaseAge/newborn/{disease_id}', [DiseaseController::class, 'getDiseaseAgeNewborn']);
+Route::get('/getDiseaseAge/children/{disease_id}', [DiseaseController::class, 'getDiseaseAgeChildren']);
