@@ -251,6 +251,15 @@ class ApiUsersController extends Controller
         *           type="integer"
         *       )
         *   ),
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="name",
+        *       description="name",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="string"
+        *       )
+        *   ),
         *   @OA\RequestBody(
         *       required=true,
         *       description="Pass user credentials",
