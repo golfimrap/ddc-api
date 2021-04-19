@@ -31,3 +31,5 @@ Route::get('/getDiseaseSex/{disease_id}/{sex_id}', [DiseaseController::class, 'g
 Route::get('/getDiseaseProvince/{disease_id}/{province_id}', [DiseaseController::class, 'getDiseaseProvince']);
 Route::get('/getDiseaseAge/newborn/{disease_id}', [DiseaseController::class, 'getDiseaseAgeNewborn']);
 Route::get('/getDiseaseAge/children/{disease_id}', [DiseaseController::class, 'getDiseaseAgeChildren']);
+Route::get('/getDiseaseAge/working/{disease_id}', [DiseaseController::class, 'getDiseaseAgeWorking']);
+Route::get('/getDiseaseAge/senile/{disease_id}', [DiseaseController::class, 'getDiseaseAgeSenile']);

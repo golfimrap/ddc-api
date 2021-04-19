@@ -24,8 +24,6 @@ class DiseaseController extends Controller
     }
 
     public static function getDiseaseAgeNewborn($disease_id) {
-        // $data_year = All_Disease::select('agey')->where('DISEASE', $disease_id)->limit(10)->get();
-        // dd($data_year);
         $result = All_Disease::where('DISEASE', $disease_id)->whereBetween('agey', [0, 6])->get();
         $data = json_decode($result, true);
 
@@ -33,9 +31,21 @@ class DiseaseController extends Controller
     }
 
     public static function getDiseaseAgeChildren($disease_id) {
-        // $data_year = All_Disease::select('agey')->where('DISEASE', $disease_id)->limit(10)->get();
-        // dd($data_year);
         $result = All_Disease::where('DISEASE', $disease_id)->whereBetween('agey', [7, 18])->get();
+        $data = json_decode($result, true);
+
+        return $data;
+    }
+
+    public static function getDiseaseAgeWorking($disease_id) {
+        $result = All_Disease::where('DISEASE', $disease_id)->whereBetween('agey', [19, 60])->get();
+        $data = json_decode($result, true);
+
+        return $data;
+    }
+
+    public static function getDiseaseAgeSenile($disease_id) {
+        $result = All_Disease::where('DISEASE', $disease_id)->where('agey', '>', 60)->get();
         $data = json_decode($result, true);
 
         return $data;
