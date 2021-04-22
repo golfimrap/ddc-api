@@ -7,6 +7,26 @@ use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
+    public function login()
+    {
+        // dd(env('USERNAME_API'), env('PASSWORD_API'));
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'http://ddc-api.local/api/login', [
+            'form_params' => [
+                'email'      => env('USERNAME_API'),
+                'password'   => env('PASSWORD_API'),
+            ],
+            'verify' => false,
+            'connect_timeout' => 30
+        ]);
+
+        // dd($response);
+
+        $data = json_decode($response->getBody(), true);
+        // dd($data['access_token']);
+        return $data['access_token'];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +34,15 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $token = $this->login();
+        // dd($token);
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
-        $response = $client->request('GET','http://ddc-api.local/api/users');
+        $response = $client->request('GET','http://ddc-api.local/api/users',[
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$token
+            ],
+        ]);
         $data_users = json_decode($response->getBody(), true);
         // $data_users = User::all();
 
@@ -42,17 +69,24 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
+
+        //dd($request->all());
+        $token = $this->login();
+         //dd($token);
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
-        $client->request('POST','http://ddc-api.local/api/users', [
-            'form_params' => [
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => Hash::make($request->password),
+        $response = $client->request('POST','http://ddc-api.local/api/users', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                //'Content-Type' => 'application/json'
             ],
-            'verify' => false,
-            'connect_timeout' => 30
+            'form_params' => [
+                'name'      => 'dsadsdasdsa',
+                'email'     => 'dsdsdsd@dsdfd.com',
+                'password'  => '12345454'
+            ]
         ]);
-        // $data_users = json_decode($response->getBody(), true);
+        // dd($response);
+        $data_users = json_decode($response->getBody(), true);
         // $data_users = User::all();
 
         return redirect()->route('user.index');
@@ -77,8 +111,14 @@ class IndexController extends Controller
      */
     public function edit($id)
     {
+        $token = $this->login();
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
-        $response = $client->request('GET', 'http://ddc-api.local/api/users/'.$id);
+        $response = $client->request('GET', 'http://ddc-api.local/api/users/'.$id, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$token
+            ],
+        ]);
         $data_users = json_decode($response->getBody(), true);
 
         return view('edit', [
@@ -95,8 +135,12 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $token = $this->login();
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
         $client->request('PATCH', 'http://ddc-api.local/api/users/'.$id , [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token
+            ],
             'form_params' => [
                 'id'   => $id,
                 'name' => $request->name
@@ -115,8 +159,14 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
+        $token = $this->login();
         $client = new \GuzzleHttp\Client([ 'verify' => false ]);
-        $client->request('DELETE', 'http://ddc-api.local/api/users/'.$id);
+        $client->request('DELETE', 'http://ddc-api.local/api/users/'.$id,[
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$token
+            ],
+        ]);
 
         return redirect()->route('user.index');
     }

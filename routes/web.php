@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/login', [IndexController::class, 'login'])->name('user.login');
 Route::get('/', [IndexController::class, 'index'])->name('user.index');
 Route::get('/addUser', [IndexController::class, 'create'])->name('user.create');
 Route::post('/store', [IndexController::class, 'store'])->name('user.store');
