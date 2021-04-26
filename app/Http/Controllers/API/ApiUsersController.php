@@ -30,20 +30,10 @@ class ApiUsersController extends Controller
         *   tags={"Users"},
         *   summary="Get Users List",
         *   operationId="Users Index",
-        *   @OA\RequestBody(
-        *       required=true,
-        *       description="Users Detail",
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
         *       @OA\JsonContent(
-        *           required={
-        *               "id",
-        *               "name",
-        *               "email",
-        *               "email_verified_at",
-        *               "password",
-        *               "remember_token",
-        *               "created_at",
-        *               "updated_at",
-        *           },
         *           @OA\Property(property="id", type="bigint", example="1"),
         *           @OA\Property(property="name", type="varchar", example="จอห์น ชาวไร่"),
         *           @OA\Property(property="email", type="varchar", example="user1@mail.com"),
@@ -52,12 +42,6 @@ class ApiUsersController extends Controller
         *           @OA\Property(property="remember_token", type="varchar", example=""),
         *           @OA\Property(property="created_at", type="timestamp", example="2021-04-13 15:14:44"),
         *           @OA\Property(property="updated_at", type="timestamp", example="2021-04-14 01:22:08"),
-        *       ),
-        *   ),
-        *   @OA\Response(
-        *       response=200,
-        *       description="Success",
-        *       @OA\JsonContent(
         *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
         *       )
         *   ),

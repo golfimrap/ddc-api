@@ -10,20 +10,101 @@ use Illuminate\Support\Facades\DB;
 
 class ApiDiseaseController extends Controller
 {
+
+    /** @OA\Get(
+        ** path="/api/getDisease/{disease_id}",
+        *   tags={"Disease"},
+        *   summary="Count Disease",
+        *   operationId="Disease Count",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="disease_id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="count", type="bigint", example="9999"),
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
+
     public function countDisease($disease_id)
     {
         $result_count = All_Disease::where('DISEASE', $disease_id)->get()->count();
-        $result_data = All_Disease::where('DISEASE', $disease_id)->get();
         $data_count = json_decode($result_count, true);
-        $data_disease = json_decode($result_data, true);
-        if($data_count && $data_disease) {
+        if($data_count) {
             return response([
                 'count' => $data_count,
-                'data' => $data_disease,
                 'message'   => 'Retrieved Successfully'
             ], 200);
         }
     }
+
+    /** @OA\Get(
+        ** path="/api/getDiseaseGender/{disease_id}",
+        *   tags={"Disease"},
+        *   summary="Count Gender",
+        *   operationId="Disease Gender",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="disease_id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="male", type="bigint", example="9999"),
+        *           @OA\Property(property="female", type="bigint", example="9999"),
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
 
     public function genderDisease($disease_id)
     {
@@ -39,6 +120,48 @@ class ApiDiseaseController extends Controller
             ], 200);
         }
     }
+
+    /** @OA\Get(
+        ** path="/api/getDiseaseProvince/{disease_id}",
+        *   tags={"Disease"},
+        *   summary="Count Province",
+        *   operationId="Disease Province",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="disease_id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="PROVINCE", type="bigint", example="10"),
+        *           @OA\Property(property="count_province", type="bigint", example="9999"),
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
 
     public function provinceDisease($disease_id)
     {
@@ -56,7 +179,51 @@ class ApiDiseaseController extends Controller
         }
     }
 
-    public function newbornDisease($disease_id)
+    /** @OA\Get(
+        ** path="/api/getDiseaseAge/{disease_id}",
+        *   tags={"Disease"},
+        *   summary="Count Age",
+        *   operationId="Disease Age",
+        *   @OA\Parameter(
+        *       required=true,
+        *       name="disease_id",
+        *       description="id",
+        *       in="path",
+        *       @OA\Schema(
+        *           type="integer"
+        *       )
+        *   ),
+        *   @OA\Response(
+        *       response=200,
+        *       description="Success",
+        *       @OA\JsonContent(
+        *           @OA\Property(property="newborn", type="bigint", example="9999"),
+        *           @OA\Property(property="children", type="bigint", example="9999"),
+        *           @OA\Property(property="working", type="bigint", example="9999"),
+        *           @OA\Property(property="senile", type="bigint", example="9999"),
+        *           @OA\Property(property="message", type="string", example="Retrieved Successfully")
+        *       )
+        *   ),
+        *   @OA\Response(
+        *      response=401,
+        *       description="Unauthenticated"
+        *   ),
+        *   @OA\Response(
+        *      response=400,
+        *      description="Bad Request"
+        *   ),
+        *   @OA\Response(
+        *      response=404,
+        *      description="not found"
+        *   ),
+        *      @OA\Response(
+        *          response=403,
+        *          description="Forbidden"
+        *      )
+        *)
+    **/
+
+    public function ageDisease($disease_id)
     {
         $result_newborn = All_Disease::where('DISEASE', $disease_id)->whereBetween('agey', [0, 6])->get()->count();
         $result_children = All_Disease::where('DISEASE', $disease_id)->whereBetween('agey', [7, 18])->get()->count();

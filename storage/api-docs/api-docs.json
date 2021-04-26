@@ -5,68 +5,24 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/users": {
+        "/api/getDisease/{disease_id}": {
             "get": {
                 "tags": [
-                    "Users"
+                    "Disease"
                 ],
-                "summary": "Get Users List",
-                "operationId": "Users Index",
-                "requestBody": {
-                    "description": "Users Detail",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "id",
-                                    "name",
-                                    "email",
-                                    "email_verified_at",
-                                    "password",
-                                    "remember_token",
-                                    "created_at",
-                                    "updated_at"
-                                ],
-                                "properties": {
-                                    "id": {
-                                        "type": "bigint",
-                                        "example": "1"
-                                    },
-                                    "name": {
-                                        "type": "varchar",
-                                        "example": "จอห์น ชาวไร่"
-                                    },
-                                    "email": {
-                                        "type": "varchar",
-                                        "example": "user1@mail.com"
-                                    },
-                                    "email_verified_at": {
-                                        "type": "timestamp",
-                                        "example": ""
-                                    },
-                                    "password": {
-                                        "type": "varchar",
-                                        "example": "PassWord12345"
-                                    },
-                                    "remember_token": {
-                                        "type": "varchar",
-                                        "example": ""
-                                    },
-                                    "created_at": {
-                                        "type": "timestamp",
-                                        "example": "2021-04-13 15:14:44"
-                                    },
-                                    "updated_at": {
-                                        "type": "timestamp",
-                                        "example": "2021-04-14 01:22:08"
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "summary": "Count Disease",
+                "operationId": "Disease Count",
+                "parameters": [
+                    {
+                        "name": "disease_id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -74,6 +30,263 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "count": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Retrieved Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/getDiseaseGender/{disease_id}": {
+            "get": {
+                "tags": [
+                    "Disease"
+                ],
+                "summary": "Count Gender",
+                "operationId": "Disease Gender",
+                "parameters": [
+                    {
+                        "name": "disease_id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "male": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "female": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Retrieved Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/getDiseaseProvince/{disease_id}": {
+            "get": {
+                "tags": [
+                    "Disease"
+                ],
+                "summary": "Count Province",
+                "operationId": "Disease Province",
+                "parameters": [
+                    {
+                        "name": "disease_id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "PROVINCE": {
+                                            "type": "bigint",
+                                            "example": "10"
+                                        },
+                                        "count_province": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Retrieved Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/getDiseaseAge/{disease_id}": {
+            "get": {
+                "tags": [
+                    "Disease"
+                ],
+                "summary": "Count Age",
+                "operationId": "Disease Age",
+                "parameters": [
+                    {
+                        "name": "disease_id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "newborn": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "children": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "working": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "senile": {
+                                            "type": "bigint",
+                                            "example": "9999"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Retrieved Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get Users List",
+                "operationId": "Users Index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "bigint",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "varchar",
+                                            "example": "จอห์น ชาวไร่"
+                                        },
+                                        "email": {
+                                            "type": "varchar",
+                                            "example": "user1@mail.com"
+                                        },
+                                        "email_verified_at": {
+                                            "type": "timestamp",
+                                            "example": ""
+                                        },
+                                        "password": {
+                                            "type": "varchar",
+                                            "example": "PassWord12345"
+                                        },
+                                        "remember_token": {
+                                            "type": "varchar",
+                                            "example": ""
+                                        },
+                                        "created_at": {
+                                            "type": "timestamp",
+                                            "example": "2021-04-13 15:14:44"
+                                        },
+                                        "updated_at": {
+                                            "type": "timestamp",
+                                            "example": "2021-04-14 01:22:08"
+                                        },
                                         "message": {
                                             "type": "string",
                                             "example": "Retrieved Successfully"
@@ -189,7 +402,7 @@
                 }
             }
         },
-        "/api/users/{id}": {
+        "/api/users/": {
             "get": {
                 "tags": [
                     "Users"
@@ -237,7 +450,9 @@
                         "description": "Forbidden"
                     }
                 }
-            },
+            }
+        },
+        "/api/users/{id}": {
             "delete": {
                 "tags": [
                     "Users"
