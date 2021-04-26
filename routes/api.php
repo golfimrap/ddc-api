@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ApiDiseaseController;
 use App\Http\Controllers\API\ApiUsersController;
 use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
@@ -25,3 +26,10 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::apiResource('users', ApiUsersController::class)->middleware('auth:api');
 
+Route::get('countDisease/{disease_id}', [ApiDiseaseController::class, 'countDisease']);
+Route::get('getDiseaseGender/{disease_id}/{gender_id}', [ApiDiseaseController::class, 'genderDisease']);
+Route::get('getDiseaseProvince/{disease_id}/{province_id}', [ApiDiseaseController::class, 'provinceDisease']);
+Route::get('getDiseaseNewborn/{disease_id}', [ApiDiseaseController::class, 'newbornDisease']);
+Route::get('getDiseaseChildren/{disease_id}', [ApiDiseaseController::class, 'childrenDisease']);
+Route::get('getDiseaseWorking/{disease_id}', [ApiDiseaseController::class, 'workingDisease']);
+Route::get('getDiseaseSenile/{disease_id}', [ApiDiseaseController::class, 'senileDisease']);
