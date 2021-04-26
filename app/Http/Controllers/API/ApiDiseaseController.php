@@ -4,12 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\All_Disease;
-use App\Models\ApiDisease;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class ApiDiseaseController extends Controller
 {
+
 
     /** @OA\Get(
         ** path="/api/getDisease/{disease_id}",
@@ -54,6 +53,7 @@ class ApiDiseaseController extends Controller
 
     public function countDisease($disease_id)
     {
+
         $result_count = All_Disease::where('DISEASE', $disease_id)->get()->count();
         $data_count = json_decode($result_count, true);
         if($data_count) {

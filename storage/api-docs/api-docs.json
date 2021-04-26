@@ -402,7 +402,7 @@
                 }
             }
         },
-        "/api/users/": {
+        "/api/users/{id}": {
             "get": {
                 "tags": [
                     "Users"
@@ -450,9 +450,7 @@
                         "description": "Forbidden"
                     }
                 }
-            }
-        },
-        "/api/users/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Users"

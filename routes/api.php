@@ -26,10 +26,18 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::apiResource('users', ApiUsersController::class)->middleware('auth:api');
 
-Route::get('getDisease/{disease_id}', [ApiDiseaseController::class, 'countDisease']);
-Route::get('getDiseaseGender/{disease_id}', [ApiDiseaseController::class, 'genderDisease']);
-Route::get('getDiseaseProvince/{disease_id}', [ApiDiseaseController::class, 'provinceDisease']);
-Route::get('getDiseaseAge/{disease_id}', [ApiDiseaseController::class, 'ageDisease']);
+Route::get('loginfailed', function () {
+    return response()->json(['message' => 'Unauthorize'], 401);
+})->name('login');
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('getDisease/{disease_id}', [ApiDiseaseController::class, 'countDisease']);
+    Route::get('getDiseaseGender/{disease_id}', [ApiDiseaseController::class, 'genderDisease']);
+    Route::get('getDiseaseProvince/{disease_id}', [ApiDiseaseController::class, 'provinceDisease']);
+    Route::get('getDiseaseAge/{disease_id}', [ApiDiseaseController::class, 'ageDisease']);
+});
+
+
 // Route::get('getDiseaseChildren/{disease_id}', [ApiDiseaseController::class, 'childrenDisease']);
 // Route::get('getDiseaseWorking/{disease_id}', [ApiDiseaseController::class, 'workingDisease']);
 // Route::get('getDiseaseSenile/{disease_id}', [ApiDiseaseController::class, 'senileDisease']);
