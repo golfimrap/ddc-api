@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Emaildd</th>
                         <th scope="col">ชื่อ</th>
                         <th scope="col">Action</th>
                     </tr>
